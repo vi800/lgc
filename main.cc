@@ -215,7 +215,6 @@ string compile(gate *g, o_pin *t)
     		cout << "ERROR : open input " << i << " on gate " << g->name << endl;
 			continue;
 		} else if (g->ip[i].con->g == NULL) {
-			cout << g->ip[i].con << " "<< t << endl;
 			s[i] = distance(g->ip[i].con, t) + 'a';
 		} else {
 			s[i] = compile(g->ip[i].con->g, t);
@@ -230,6 +229,12 @@ string compile(gate *g, o_pin *t)
 		}
 	}
 	return logic;
+}
+void add_gate(string s)
+{
+	FILE *f = fopen("comp", "a");
+	fprintf(f, "\nCUS%d %s", types.size()+1, s.c_str());
+	fclose(f);
 }
 
 int main()
@@ -285,7 +290,7 @@ int main()
 
 			
 		if (IsKeyPressed(KEY_SPACE)) {
-			cout << compile(bulbs[0].con->g, toggles.data()) << endl;
+			add_gate(compile(bulbs[0].con->g, toggles.data()));
 		}
 		if (IsKeyPressed(KEY_RIGHT)) cur = (cur+1)%types.size();
 		if (IsKeyPressed(KEY_ENTER)) {
@@ -293,8 +298,6 @@ int main()
 			gates.rbegin() -> init();
 			gates.rbegin() -> name = types[cur].name;
 			gates.rbegin() -> logic = types[cur].logic;
-			cout << "CREATED ";
-			gates.rbegin() -> debug();
 		}
 
 		if (selected != NULL) {
