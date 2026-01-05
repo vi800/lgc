@@ -1,3 +1,13 @@
+/*
+TODO
+user should select name of custom gates
+create user interface for adding and saving gates
+create option to combine multiple gates to one, have more than one outputs (for creating multi bit gates like adders)
+fix the bug where adding a new gate makes the lines of connections act unexpectedly
+add error handling everywhere
+handle edge cases and remove temp fixes (like setting the gate vector capacity to 100)
+*/
+
 #include <iterator>
 #include <stack>
 #include <iostream>
